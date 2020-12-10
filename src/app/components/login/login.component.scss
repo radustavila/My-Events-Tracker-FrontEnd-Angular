@@ -1,0 +1,49 @@
+.full-width {
+  width: 100%;
+}
+
+.shipping-card {
+  min-width: 250px;
+  width: 50%;
+  max-width: 400px;
+  margin: 20px auto;
+  margin-top: 100px;
+  background-image: url('/assets/images/mat-card-background.jpg');
+  background-size: cover;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.col {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.col:last-child {
+  margin-right: 0;
+}
+
+.mat-card-title {
+  font-size: xx-large;
+  padding: 25px 0;
+}
+
+.mat-card-content {
+  margin: 25px 0;
+}
+
+.mat-card-footer {
+  text-align: center;
+  padding: 20px;
+}
+
+.btn-register {
+  margin-left: 10px;
+}
+
+.btn-login {
+  width: 100%;
+}
