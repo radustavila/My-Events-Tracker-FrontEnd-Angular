@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { MyEvent } from '../models/my-event';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +15,11 @@ export class EventService {
     private httpClient: HttpClient
   ) { }
 
-  // save() : Observable<any> {
-  //   return this.httpClient.post<any>()
-  // }
+  public save(event: MyEvent) : Observable<Boolean> {
+    return this.httpClient.post<Boolean>(`${this.host}/events`, event)
+  }
 
-  get(): Observable<any> {
+  public get(): Observable<any> {
     return this.httpClient.get<any>(`${this.host}/events`)
   }
 

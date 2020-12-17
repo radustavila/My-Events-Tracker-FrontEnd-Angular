@@ -46,17 +46,15 @@
         <div class="col">
           <mat-form-field color="accent">
             <mat-label>Date</mat-label>
-            <input ng-disabled="checked" matInput [matDatepicker]="picker2" placeholder="Date (mm/dd/yyyy)" formControlName="date"
-              (dateChange)="addEvent('change', $event)">
+            <input matInput [matDatepicker]="picker2" placeholder="Date (mm/dd/yyyy)" formControlName="date">
             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker #picker2 color="accent"></mat-datepicker>
           </mat-form-field>
-          <mat-checkbox ng-model="checked" class="date-checkbox">Today</mat-checkbox>
         </div>
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit" [disabled]="eventForm.invalid">Submit</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="eventForm.invalid">Add Event</button>
     </mat-card-actions>
   </mat-card>
 </form>

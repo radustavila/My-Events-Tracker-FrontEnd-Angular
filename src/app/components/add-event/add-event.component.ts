@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { EventService } from 'src/app/services/event.service';
-import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 import { MyEvent } from 'src/app/models/my-event';
+import * as moment from 'moment';
+import { UtilsService } from 'src/app/services/utils.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-event',
@@ -30,33 +32,32 @@ export class AddEventComponent {
 
   constructor(
     private fb: FormBuilder,
-    private eventService: EventService  
+    private eventService: EventService,
+    private utilsService: UtilsService,
+    private router: Router  
   ) {}
 
-  events: string[] = [];
-
-  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.events.push(`${type}: ${event.value}`);
-  }
-
   onSubmit() {
-    alert('Thanks!');
-    
+
+    const date = moment(this.eventForm.controls['date'].value).format("YYYY/MM/DD");
+
     const event: MyEvent = {
       name: this.eventForm.controls['eventName'].value,
       category: this.eventForm.controls['category'].value,
       cost: this.eventForm.controls['cost'].value ? this.eventForm.controls['cost'].value : 0,
-      date: this.eventForm.controls['date'].value
+      date: date
     }
 
-    console.log(event)
-    // this.eventService.get().subscribe(
-    //   res => {
-    //     console.log(res)
-    //   },
-    //   err => {
-    //     console.log(err)
-    //   }
-    // )
+    this.eventService.save(event).subscribe(
+      res => {
+        console.log(res)
+        this.utilsService.openSuccesSnackBar("The event has been added succsessfully!")
+        this.router.navigateByUrl('/dashboard')
+      },
+      err => {
+        console.log(err)
+        this.utilsService.openFailSnackBar("Saving the event failed!")
+      }
+    )
   }
 }
