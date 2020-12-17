@@ -1,0 +1,62 @@
+<form [formGroup]="eventForm" novalidate (ngSubmit)="onSubmit()">
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>Add New Event</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Event</mat-label>
+            <input matInput placeholder="Event name" formControlName="eventName">
+            <mat-error *ngIf="eventForm.controls['eventName'].hasError('required')">
+              Event name is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Category</mat-label>
+            <mat-select placeholder="Category" formControlName="category">
+              <mat-option *ngFor="let category of categories" [value]="category.name">
+                {{ category.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="eventForm.controls['category'].hasError('required')">
+              Category is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Cost*</mat-label>
+            <input matInput min="0" placeholder="Cost is optional" type="number" formControlName="cost">
+            <mat-error *ngIf="eventForm.controls['cost'].hasError('min')">
+              Cost cannot be negative
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field color="accent">
+            <mat-label>Date</mat-label>
+            <input ng-disabled="checked" matInput [matDatepicker]="picker2" placeholder="Date (mm/dd/yyyy)" formControlName="date"
+              (dateChange)="addEvent('change', $event)">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2 color="accent"></mat-datepicker>
+          </mat-form-field>
+          <mat-checkbox ng-model="checked" class="date-checkbox">Today</mat-checkbox>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit" [disabled]="eventForm.invalid">Submit</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

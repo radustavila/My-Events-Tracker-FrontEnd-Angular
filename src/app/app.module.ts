@@ -20,13 +20,21 @@ import { DashComponent } from './components/dash/dash.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { LayoutModule } from '@angular/cdk/layout';
+import { AddEventComponent } from './components/add-event/add-event.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AuthenticationService } from './services/authentication.service';
+import { EventService } from './services/event.service';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    DashComponent
+    DashComponent,
+    AddEventComponent
   ],
   imports: [
     BrowserModule,
@@ -45,9 +53,16 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatSnackBarModule,
     MatGridListModule,
     MatMenuModule,
-    LayoutModule
+    LayoutModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    AuthenticationService,
+    EventService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

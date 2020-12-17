@@ -24,4 +24,8 @@ export class AuthenticationService {
   public login(user: UserLogin): Observable<Token> {
     return this.httpClient.post<Token>(`${this.host}/auth/login`, user);
   }
+
+  public saveToken(token: string): void {
+    localStorage.setItem('token', token)
+  } 
 }
