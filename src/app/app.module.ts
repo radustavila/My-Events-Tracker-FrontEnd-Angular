@@ -27,6 +27,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AuthenticationService } from './services/authentication.service';
 import { EventService } from './services/event.service';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { EventsListComponent } from './components/events-list/events-list.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,8 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
     LoginComponent,
     RegisterComponent,
     DashComponent,
-    AddEventComponent
+    AddEventComponent,
+    EventsListComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +61,10 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
     LayoutModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

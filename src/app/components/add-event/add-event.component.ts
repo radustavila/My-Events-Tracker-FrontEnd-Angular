@@ -42,6 +42,7 @@ export class AddEventComponent {
     const date = moment(this.eventForm.controls['date'].value).format("YYYY/MM/DD");
 
     const event: MyEvent = {
+      id: null,
       name: this.eventForm.controls['eventName'].value,
       category: this.eventForm.controls['category'].value,
       cost: this.eventForm.controls['cost'].value ? this.eventForm.controls['cost'].value : 0,

@@ -15,12 +15,16 @@ export class EventService {
     private httpClient: HttpClient
   ) { }
 
-  public save(event: MyEvent) : Observable<Boolean> {
-    return this.httpClient.post<Boolean>(`${this.host}/events`, event)
+  public save(event: MyEvent): Observable<MyEvent> {
+    return this.httpClient.post<MyEvent>(`${this.host}/events`, event)
   }
 
-  public get(): Observable<any> {
-    return this.httpClient.get<any>(`${this.host}/events`)
+  public get(): Observable<MyEvent[]> {
+    return this.httpClient.get<MyEvent[]>(`${this.host}/events`)
+  }
+
+  public delete(id: number): Observable<any> {
+    return this.httpClient.delete<any>(`${this.host}/events/${id}`)
   }
 
 }

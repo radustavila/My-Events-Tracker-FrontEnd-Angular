@@ -33,10 +33,10 @@
       <div class="row">
         <div class="col">
           <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Cost*</mat-label>
+            <mat-label>Cost (€)</mat-label>
             <input matInput min="0" placeholder="Cost is optional" type="number" formControlName="cost">
             <mat-error *ngIf="eventForm.controls['cost'].hasError('min')">
-              Cost cannot be negative
+              Cost cannot lower than <strong>0</strong>
             </mat-error>
           </mat-form-field>
         </div>

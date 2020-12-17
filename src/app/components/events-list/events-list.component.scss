@@ -1,0 +1,29 @@
+.full-width-table {
+  width: 100%;
+}
+
+.edit-icon {
+  color: rgb(0, 0, 119);
+}
+
+.delete-icon {
+  color: rgb(141, 0, 0);
+}
+
+.mat-header-cell {
+  font-size: x-large;
+}
+
+.container-date {
+}
+      
+.mat-row:nth-child(odd){
+  background-color: rgb(231, 231, 231);
+}
+
+.container {
+  max-width: 1300px;
+  min-width: 750px;
+  width: 75%;
+  margin: 20px auto;
+}

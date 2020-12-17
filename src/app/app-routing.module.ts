@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AddEventComponent } from './components/add-event/add-event.component';
 import { DashComponent } from './components/dash/dash.component';
+import { EventsListComponent } from './components/events-list/events-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'add-event',
     component: AddEventComponent
+  },
+  {
+    path: 'events',
+    component: EventsListComponent
   }
 ];
 
