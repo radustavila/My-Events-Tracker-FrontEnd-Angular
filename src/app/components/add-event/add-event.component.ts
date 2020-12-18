@@ -39,7 +39,7 @@ export class AddEventComponent {
 
   onSubmit() {
 
-    const date = moment(this.eventForm.controls['date'].value).format("YYYY/MM/DD");
+    const date = moment(this.eventForm.controls['date'].value).format("YYYY-MM-DD");
 
     const event: MyEvent = {
       id: null,
@@ -51,9 +51,8 @@ export class AddEventComponent {
 
     this.eventService.save(event).subscribe(
       res => {
-        console.log(res)
         this.utilsService.openSuccesSnackBar("The event has been added succsessfully!")
-        this.router.navigateByUrl('/dashboard')
+        this.router.navigateByUrl('/events')
       },
       err => {
         console.log(err)

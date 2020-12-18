@@ -31,6 +31,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { EventsListComponent } from './components/events-list/events-list.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +44,8 @@ import { EventsListComponent } from './components/events-list/events-list.compon
     RegisterComponent,
     DashComponent,
     AddEventComponent,
-    EventsListComponent
+    EventsListComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +70,11 @@ import { EventsListComponent } from './components/events-list/events-list.compon
     MatCheckboxModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    FlexLayoutModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
