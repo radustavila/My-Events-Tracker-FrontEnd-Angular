@@ -27,8 +27,7 @@ export class AddEventComponent {
     {name: 'Festival'},
     {name: 'Tournament'},
     {name: 'Trip'},
-    {name: 'Sport'},
-    {name: 'Workshop'},
+    {name: 'Sport'}
   ];
 
   constructor(

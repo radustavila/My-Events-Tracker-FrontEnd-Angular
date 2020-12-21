@@ -16,7 +16,6 @@ import { RegisterComponent } from './components/register/register.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { DashComponent } from './components/dash/dash.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -36,16 +35,26 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ChartsModule } from 'ng2-charts';
+import { CardComponent } from './components/dashboard/card/card.component';
+import { CategoryChartComponent } from './components/dashboard/charts/category-chart/category-chart.component';
+import { MonthlyExpensesChartComponent } from './components/dashboard/charts/monthly-expenses-chart/monthly-expenses-chart.component';
+import { DividedCostChartComponent } from './components/dashboard/charts/divided-cost-chart/divided-cost-chart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    DashComponent,
     AddEventComponent,
     EventsListComponent,
-    NavigationComponent
+    NavigationComponent,
+    DashboardComponent,
+    CardComponent,
+    CategoryChartComponent,
+    MonthlyExpensesChartComponent,
+    DividedCostChartComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +83,8 @@ import { NavigationComponent } from './components/navigation/navigation.componen
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    ChartsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

@@ -84,19 +84,18 @@ export class EventsListDataSource extends DataSource<EventsListItem> {
    * this would be replaced by requesting the appropriate data from the server.
    */
   private getSortedData(data: EventsListItem[]) {
-    console.log("aici")
-    console.log(this.sort.active)
+    // console.log("aici")
+    // console.log(this.sort.active)
     if (!this.sort.active || this.sort.direction === '') {
-      console.log("aici1")
+      // console.log("aici1")
       return data;
     }
 
     return data.sort((a, b) => {
-      console.log("aici2")
+      // console.log("aici2")
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
         case 'date': return compare(a.date, b.date, isAsc);
-        case 'name': return compare(a.name, b.name, isAsc);
         case 'name': return compare(a.name, b.name, isAsc);
         case 'category': return compare(a.category, b.category, isAsc);
         case 'cost': return compare(+a.cost, +b.cost, isAsc);

@@ -1,0 +1,43 @@
+<!-- <div class="grid-container">
+  <h1 class="mat-h1">Dashboard</h1>
+  <mat-grid-list cols="2" rowHeight="350px">
+    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+      
+    </mat-grid-tile>
+  </mat-grid-list>
+</div> -->
+
+
+<!--dash.component.html-->
+<div class="grid-container">
+  <!-- <h1 class="mat-h1">Dashboard</h1> -->
+  <mat-grid-list cols="{{ ( cardLayout | async )?.columns }}" rowHeight="200px">
+
+    <!--Mini Cards-->
+    <mat-grid-tile *ngFor="let i of [1, 2, 3, 4]" [colspan]="( cardLayout | async )?.miniCard.cols"
+      [rowspan]="( cardLayout | async )?.miniCard.rows">
+      <app-card title="Card {{i}}"><div>Mini Card Content Here</div></app-card>
+    </mat-grid-tile>
+
+    <!--Charts-->
+    <mat-grid-tile [colspan]="( cardLayout | async )?.chart.cols" [rowspan]="( cardLayout | async )?.chart.rows">
+      <app-card title="Categories">
+        <app-category-chart></app-category-chart>
+      </app-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="( cardLayout | async )?.chart.cols" [rowspan]="( cardLayout | async )?.chart.rows">
+      <app-card title="Cost">
+        <app-divided-cost-chart></app-divided-cost-chart>
+      </app-card>
+    </mat-grid-tile>
+
+    <!-- Maxi Card -->
+    <mat-grid-tile [colspan]="( cardLayout | async )?.maxiCard.cols" [rowspan]="( cardLayout | async )?.maxiCard.rows">
+      <app-card title="MaxiCard">
+        <app-monthly-expenses-chart></app-monthly-expenses-chart>
+      </app-card>
+    </mat-grid-tile>
+    
+  </mat-grid-list>
+ </div>
