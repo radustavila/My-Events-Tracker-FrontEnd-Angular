@@ -20,7 +20,7 @@
                     <mat-icon>add_box</mat-icon>
                     Add event
                 </a>
-                <a href="#" mat-button>
+                <a href="#" (click)="logout()" mat-button>
                     <mat-icon>login</mat-icon>
                     Logout
                 </a>
@@ -43,7 +43,7 @@
                     <mat-icon>add_box</mat-icon>
                     Add event
                 </a>
-                <a href="#" mat-list-item>
+                <a href="#" (click)="logout()" mat-list-item>
                     <mat-icon>login</mat-icon>
                     Logout
                 </a>
@@ -55,6 +55,7 @@
 
         <mat-sidenav-content fxFlexFill>
             <router-outlet></router-outlet>
+            <!-- <div *ngIf="!auth"></div> -->
         </mat-sidenav-content>
 
     </mat-sidenav-container>

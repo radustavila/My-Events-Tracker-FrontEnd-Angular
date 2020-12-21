@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserLogin } from 'src/app/models/user';
@@ -12,6 +12,8 @@ import { UtilsService } from 'src/app/services/utils.service';
 })
 export class LoginComponent implements OnInit {
   
+  rememberMe: boolean = false
+
   loginForm = this.fb.group({
     username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required)
@@ -25,6 +27,9 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    if (this.authService.isUserLoggedIn()) {
+      this.router.navigateByUrl('/dashboard')
+    }
   }
 
   onSubmit() {
@@ -36,6 +41,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(user).subscribe(
       res => {
         this.authService.saveToken(res.token)
+        this.authService.rememberMe(this.rememberMe)
         this.router.navigateByUrl('/dashboard')
       },
       err => {

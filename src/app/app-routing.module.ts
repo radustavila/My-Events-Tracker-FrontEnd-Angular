@@ -5,13 +5,9 @@ import { DashComponent } from './components/dash/dash.component';
 import { EventsListComponent } from './components/events-list/events-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full'
-  },
   {
     path: 'login',
     component: LoginComponent
@@ -22,15 +18,23 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: DashComponent
+    component: DashComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'add-event',
-    component: AddEventComponent
+    component: AddEventComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'events',
-    component: EventsListComponent
+    component: EventsListComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
   }
 ];
 

@@ -36,6 +36,9 @@
             [disabled]="loginForm.invalid"
             >Login
           </button>
+          <div class="remember">
+            <mat-checkbox [(ngModel)]="rememberMe" [ngModelOptions]="{standalone: true}">Remember me</mat-checkbox>
+          </div>
         </div>
       </div>
     </mat-card-content>

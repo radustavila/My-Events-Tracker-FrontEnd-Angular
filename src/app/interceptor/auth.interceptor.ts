@@ -8,58 +8,21 @@ import {
   HttpErrorResponse
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { catchError, map } from 'rxjs/operators';
-
-
-const host = environment.apiUrl
-
-const ALLOWED_APIS = [
-  `${host}/auth/login`,
-  `${host}/auth/register`,
-  `${host}/events`,
-]
+import { UtilsService } from '../services/utils.service';
 
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor() {}
+  constructor(
+    private utilsService: UtilsService
+  ) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    // const token: string = localStorage.getItem('token');
-    // let condition: Boolean = ALLOWED_APIS.some((api) =>
-    // request.url.startsWith(api)
-    // );
-
-    // if (!condition) {
-    //   request = request.clone({
-    //     setHeaders: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   });
-    // }
-
-    // return next.handle(request)
-    // .pipe(
-      // map((event: HttpEvent<any>) => {
-      //   return event;
-      // }),
-
-      // catchError((error: HttpErrorResponse) => {
-      //   if (error.status === 403) {
-      //     console.log("unfortunately i've entered here")
-      //     return next.handle(request.clone({
-      //       setHeaders: {
-      //         Authorization: `Bearer ${token}`,
-      //       }}));
-      //   }
-      //   return throwError(error)
-      // }));
-   
     const token: string = localStorage.getItem('token');
-    // console.log(token)
-    if (token) {
+
+    if (token && token !== '') {
       request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
     }
 
@@ -67,18 +30,24 @@ export class AuthInterceptor implements HttpInterceptor {
       request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
     }
 
-    return next.handle(request);
-      // ,
-      // catchError((error: HttpErrorResponse) => {
-      //   let data = {};
-      //   data = {
-      //       reason: error && error.error && error.error.reason ? error.error.reason : '',
-      //       status: error.status
-      //   };
-      //   console.log(data)
-      //   return throwError(error);
-      // }
-      // )
-      // );
-}
+    return next.handle(request)
+      .pipe(
+        map((event: HttpEvent<any>) => {
+          // if (event instanceof HttpResponse) {
+          //   console.log('event--->>>', event);
+          // }
+          return event;
+        }),
+        catchError((error: HttpErrorResponse) => {
+          let data = {};
+          data = {
+            reason: error && error.error && error.error.reason ? error.error.reason : '',
+            status: error.status
+          };
+          // console.log(data)
+          this.utilsService.openFailSnackBar("Request failed!")
+          return throwError(error);
+        })
+      );
+  }
 }
