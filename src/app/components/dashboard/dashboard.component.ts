@@ -1,13 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { StatisticsService } from 'src/app/services/statistics.service';
+import { Summary } from 'src/app/models/summary';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   /** Based on the screen size, switch from standard to one column per row */
 
   cardLayout = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
@@ -26,32 +28,28 @@ export class DashboardComponent {
         columns: 4,
         miniCard: { cols: 1, rows: 1 },
         chart: { cols: 2, rows: 2 },
-        maxiCard: { cols: 4, rows: 4 }
+        maxiCard: { cols: 2, rows: 3 }
         // table: { cols: 4, rows: 4 },
       };
     })
   );
 
+  miniCardData: Summary[];
 
-  card = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-    map(({ matches }) => {
-      if (matches) {
-        return [
-          { title: 'Card 1', cols: 1, rows: 1 },
-          { title: 'Card 2', cols: 1, rows: 1 },
-          { title: 'Card 3', cols: 1, rows: 1 },
-          { title: 'Card 4', cols: 1, rows: 1 }
-        ];
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private statsService: StatisticsService
+  ) {}
+
+  ngOnInit(): void {
+    this.statsService.getCostEventsSummary().subscribe(
+      res => {
+        this.miniCardData = res
+        console.log(this.miniCardData)
+      },
+      err => {
+        console.log(err)
       }
-
-      return [
-        { title: 'Card 1', cols: 2, rows: 1 },
-        { title: 'Card 2', cols: 1, rows: 1 },
-        { title: 'Card 3', cols: 1, rows: 2 },
-        { title: 'Card 4', cols: 1, rows: 1 }
-      ];
-    })
-  );
-
-  constructor(private breakpointObserver: BreakpointObserver) {}
+    )
+  }
 }

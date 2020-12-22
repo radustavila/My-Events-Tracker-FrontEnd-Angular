@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
+import { StatisticsService } from 'src/app/services/statistics.service';
 
 @Component({
   selector: 'app-monthly-expenses-chart',
@@ -10,26 +11,63 @@ import { Color, Label } from 'ng2-charts';
 export class MonthlyExpensesChartComponent implements OnInit {
 
   public lineChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-    { data: [1, 2, 3, 4, 5, 6, 7], label: 'Series B' },
+    { data: [], label: 'Current Year'  },
+    { data: [], label: 'Previous Year' }
   ];
-  public lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartLabels: Label[] = [];
   public lineChartOptions: ChartOptions = {
     responsive: true,
+    tooltips: {
+      titleFontSize: 18,
+      bodyFontSize: 20
+    },
+    legend: {
+      labels: {
+        fontSize: 15
+      }
+    },
+    scales: { 
+      yAxes: [{
+         scaleLabel: {
+            display: true,
+            labelString: 'Euro'
+         }
+      }]
+    }
   };
   public lineChartColors: Color[] = [
-    {
-      borderColor: 'black',
+    { // red
       backgroundColor: 'rgba(255,0,0,0.3)',
+      borderColor: 'red',
+    },
+    { // dark grey
+      backgroundColor: 'rgba(77,83,96,0.2)',
+      borderColor: 'rgba(77,83,96,1)',
     },
   ];
   public lineChartLegend = true;
   public lineChartType: ChartType = 'line';
   public lineChartPlugins = [];
 
-  constructor() { }
+  constructor(
+    private statsService: StatisticsService
+  ) { }
 
   ngOnInit() {
+    this.statsService.getMonthlyStats().subscribe(
+      res => {
+        for (var key in res[0]) {
+          this.lineChartLabels.push(key)
+          this.lineChartData[0].data.push(res[0][key]);
+        }
+        for (var key in res[1]) {
+          this.lineChartData[1].data.push(res[1][key])
+        }
+      }, 
+      err => {
+        console.log(err)
+      }
+    )
   }
 
 }

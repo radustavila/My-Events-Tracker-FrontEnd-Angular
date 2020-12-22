@@ -12,6 +12,15 @@ export class DividedCostChartComponent implements OnInit {
 
   public barChartOptions: ChartOptions = {
     responsive: true,
+    tooltips: {
+      titleFontSize: 18,
+      bodyFontSize: 20,
+      callbacks: {
+        label: function (tooltipItems, data) {
+          return data.datasets[0].data[tooltipItems.index] + ' events';
+        }
+      }
+    },
     scales: { 
       yAxes: [{
          scaleLabel: {
@@ -27,11 +36,13 @@ export class DividedCostChartComponent implements OnInit {
      }],
     }
   };
-  public barChartLabels: Label[] = ['0', '1-25', '26-50', '51-75', '76-100', '101-150', '151-250', '251<'];
+  public barChartLabels: Label[] = ['0 €', '1-25 €', '26-50 €', '51-75 €', '76-100 €', '101-150 €', '151-250 €', '251€ <'];
   public barChartType: ChartType = 'bar';
   public barChartLegend = false;
   public barChartPlugins = [];
-  public barChartData: ChartDataSets[] = [];
+  public barChartData: ChartDataSets[] = [
+    { data: [], backgroundColor: "rgba(255, 153, 51, 0.7)" }
+  ];
   
   constructor(
     private statsService: StatisticsService
@@ -43,8 +54,8 @@ export class DividedCostChartComponent implements OnInit {
         var values = []
         for (var key in res) {
           values.push(res[key])
+          this.barChartData[0].data.push(res[key])
         }
-        this.barChartData.push({data: values, backgroundColor: '#FF9933'})
       }
     )
   }

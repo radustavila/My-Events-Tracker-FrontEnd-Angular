@@ -14,7 +14,16 @@ export class CategoryChartComponent implements OnInit {
 
   public pieChartOptions: ChartOptions = {
     responsive: true,
-    
+    legend: {
+      labels: {
+        fontSize: 15,
+        usePointStyle: true
+      }
+    },
+    tooltips: {
+      titleFontSize: 18,
+      bodyFontSize: 20,
+    },
   };
   public pieChartLabels: Label[] = [];
   public pieChartData: SingleDataSet = [];

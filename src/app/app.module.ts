@@ -41,6 +41,7 @@ import { CardComponent } from './components/dashboard/card/card.component';
 import { CategoryChartComponent } from './components/dashboard/charts/category-chart/category-chart.component';
 import { MonthlyExpensesChartComponent } from './components/dashboard/charts/monthly-expenses-chart/monthly-expenses-chart.component';
 import { DividedCostChartComponent } from './components/dashboard/charts/divided-cost-chart/divided-cost-chart.component';
+import { MiniCardComponent } from './components/dashboard/mini-card/mini-card.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { DividedCostChartComponent } from './components/dashboard/charts/divided
     CardComponent,
     CategoryChartComponent,
     MonthlyExpensesChartComponent,
-    DividedCostChartComponent
+    DividedCostChartComponent,
+    MiniCardComponent
   ],
   imports: [
     BrowserModule,
