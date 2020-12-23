@@ -16,7 +16,7 @@ export class CategoryChartComponent implements OnInit {
     responsive: true,
     legend: {
       labels: {
-        fontSize: 15,
+        fontSize: 14,
         usePointStyle: true
       }
     },

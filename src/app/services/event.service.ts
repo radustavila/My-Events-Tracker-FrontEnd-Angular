@@ -23,8 +23,11 @@ export class EventService {
     return this.httpClient.get<MyEvent[]>(`${this.host}/events`)
   }
 
+  public getOne(id: number): Observable<MyEvent> {
+    return this.httpClient.get<MyEvent>(`${this.host}/events/${id}`)
+  }
+
   public delete(id: number): Observable<any> {
     return this.httpClient.delete<any>(`${this.host}/events/${id}`)
   }
-
 }

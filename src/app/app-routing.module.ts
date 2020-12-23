@@ -4,6 +4,7 @@ import { AddEventComponent } from './components/add-event/add-event.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EventsListComponent } from './components/events-list/events-list.component';
 import { LoginComponent } from './components/login/login.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AuthGuard } from './guard/auth.guard';
 
@@ -27,6 +28,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'update-event/:id',
+    component: AddEventComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'events',
     component: EventsListComponent,
     canActivate: [AuthGuard]
@@ -35,6 +41,10 @@ const routes: Routes = [
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'
+  },
+  {
+    path: '**',
+    component: NotFoundComponent
   }
 ];
 

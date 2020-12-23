@@ -28,7 +28,7 @@ export class AuthenticationService {
   }
 
   public logout(): void {
-    localStorage.removeItem('token')
+    localStorage.clear()
   }
 
   public saveToken(token: string): void {

@@ -27,6 +27,13 @@
         <app-monthly-expenses-chart></app-monthly-expenses-chart>
       </app-card>
     </mat-grid-tile>
+
+    <!-- Table -->
+    <mat-grid-tile [colspan]="( cardLayout | async )?.table.cols" [rowspan]="( cardLayout | async )?.table.rows">
+      <app-card title="Latest Orders">
+        <app-events-table></app-events-table>
+      </app-card>
+   </mat-grid-tile>
     
   </mat-grid-list>
  </div>

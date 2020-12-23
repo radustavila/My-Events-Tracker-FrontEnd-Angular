@@ -1,0 +1,29 @@
+
+.forbidden {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+
+  .lock {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: xx-large;
+    font-weight: bold;
+  }
+
+  h3 {
+    font-size: large;
+  }
+}
+
+.mat-icon {
+  font-size: 100px;
+  height: 100px;
+  width: 110px;
+}

@@ -36,6 +36,9 @@ export class NavigationComponent implements OnInit {
     } else if (this.location.path() === '/add-event') {
       this.title = 'Add event'
       this.visible = true
+    } else if (this.location.path().startsWith('/update-event')) {
+      this.title = 'Update event'
+      this.visible = true
     } else {
       this.title = 'My Events Tracker'
       this.visible = false
@@ -52,7 +55,10 @@ export class NavigationComponent implements OnInit {
     } else if (path === '/add-event') {
       this.title = 'Add event'
       this.visible = true
-    } else {
+    } else if (path.startsWith('/update-event')) {
+      this.title = 'Update event'
+      this.visible = true
+    } else if (path === '/login' || path === '/register') {
       this.title = 'My Events Tracker'
       this.visible = false
     }
@@ -65,6 +71,7 @@ export class NavigationComponent implements OnInit {
       localStorage.clear();
     }
   }
+
 
   public titlePage(title: string): void {
     this.title = title

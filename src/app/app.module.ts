@@ -42,6 +42,9 @@ import { CategoryChartComponent } from './components/dashboard/charts/category-c
 import { MonthlyExpensesChartComponent } from './components/dashboard/charts/monthly-expenses-chart/monthly-expenses-chart.component';
 import { DividedCostChartComponent } from './components/dashboard/charts/divided-cost-chart/divided-cost-chart.component';
 import { MiniCardComponent } from './components/dashboard/mini-card/mini-card.component';
+import { EventsTableComponent } from './components/dashboard/events-table/events-table.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -56,7 +59,9 @@ import { MiniCardComponent } from './components/dashboard/mini-card/mini-card.co
     CategoryChartComponent,
     MonthlyExpensesChartComponent,
     DividedCostChartComponent,
-    MiniCardComponent
+    MiniCardComponent,
+    EventsTableComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -86,7 +91,8 @@ import { MiniCardComponent } from './components/dashboard/mini-card/mini-card.co
     MatSidenavModule,
     MatListModule,
     FlexLayoutModule,
-    ChartsModule
+    ChartsModule,
+    MatDialogModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
