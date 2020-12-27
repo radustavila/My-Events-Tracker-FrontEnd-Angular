@@ -21,9 +21,11 @@ export interface EventsListItem {
  * (including sorting, pagination, and filtering).
  */
 export class EventsListDataSource extends DataSource<EventsListItem> {
-  data: EventsListItem[];
+  
   paginator: MatPaginator;
   sort: MatSort;
+  data: EventsListItem[];
+  initialData: EventsListItem[] = []
 
   constructor(
     private eventService: EventService,
@@ -37,12 +39,44 @@ export class EventsListDataSource extends DataSource<EventsListItem> {
     this.eventService.get().subscribe(
       res => {
         this.data = res
+        this.initialData = res
       },
       err => {
         console.log(err)
         this.utilsService.openFailSnackBar("Could not retrive data from server!")
       }
     )
+  }
+
+  filterByName(filter: string): EventsListItem[] {
+    filter = filter.toLowerCase()
+    var filteredData: EventsListItem[] = []
+    this.initialData.forEach(element => {
+      if (element.name.toLowerCase().includes(filter)) {
+        filteredData.push(element)
+      }
+    });
+    return filteredData
+  }
+
+  filterByCategory(filter: string): EventsListItem[] {
+    var filteredData: EventsListItem[] = []
+    this.initialData.forEach(element => {
+      if (element.category === filter) {
+        filteredData.push(element)
+      }
+    });
+    return filteredData
+  }
+
+  filterByYear(filter: number): EventsListItem[] {
+    var filteredData: EventsListItem[] = []
+    this.initialData.forEach(element => {
+      if (Number(element.date.substring(0, 4)) === filter) {
+        filteredData.push(element)
+      }
+    });
+    return filteredData
   }
 
   /**

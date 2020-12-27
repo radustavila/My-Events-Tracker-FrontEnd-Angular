@@ -30,4 +30,8 @@ export class EventService {
   public delete(id: number): Observable<any> {
     return this.httpClient.delete<any>(`${this.host}/events/${id}`)
   }
+
+  public getYears(): Observable<number[]> {
+    return this.httpClient.get<number[]>(`${this.host}/stats/years`)
+  }
 }

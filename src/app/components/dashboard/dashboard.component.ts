@@ -45,7 +45,6 @@ export class DashboardComponent implements OnInit {
     this.statsService.getCostEventsSummary().subscribe(
       res => {
         this.miniCardData = res
-        console.log(this.miniCardData)
       },
       err => {
         console.log(err)

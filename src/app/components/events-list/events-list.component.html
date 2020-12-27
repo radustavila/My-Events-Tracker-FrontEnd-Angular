@@ -1,3 +1,35 @@
+<section>
+  <mat-card class="card container">
+    <div class="filter">
+      <mat-form-field class="filter-field" appearance="outline">
+        <mat-label>Filter by Year</mat-label>
+        <mat-select (selectionChange)="selectYear($event.value)">
+          <mat-option>None</mat-option>
+          <mat-option *ngFor="let year of years" [value]="year">{{year}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="filter">
+      <mat-form-field class="filter-field" appearance="outline">
+        <mat-label>Filter by Category</mat-label>
+        <mat-select (selectionChange)="selectCategory($event.value)">
+          <mat-option>None</mat-option>
+          <mat-option *ngFor="let category of categories" [value]="category">{{category}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="search">
+      <mat-form-field class="search-field" appearance>
+        <mat-label>Search by Event</mat-label>
+        <input [(ngModel)]="searchText" class="search-input" matInput placeholder="Event name">
+      </mat-form-field>
+      
+    <div>
+      <mat-icon style="margin-top: 10px;">search</mat-icon>
+    </div>
+    </div>
+  </mat-card>
+</section>
 <div class="mat-elevation-z8 container">
   <table mat-table class="full-width-table" matSort aria-label="Events" [dataSource]="dataSource.data">
     <!-- Date Column -->
@@ -26,23 +58,23 @@
     
     <!-- Edit Column -->
     <ng-container class="container-edit" matColumnDef="edit">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Edit</th>
+      <th style="max-width: 50px;" mat-header-cell *matHeaderCellDef mat-sort-header>Edit</th>
       <td mat-cell *matCellDef="let row"> <button mat-button (click)="update(row.id)"> <mat-icon class="edit-icon">create</mat-icon></button></td>
     </ng-container>
 
     <!-- Delete Column -->
     <ng-container class="container-delete" matColumnDef="delete">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Delete</th>
+      <th style="max-width: 50px;" mat-header-cell *matHeaderCellDef mat-sort-header>Delete</th>
       <td mat-cell *matCellDef="let row"> <button mat-button (click)="delete(row.id)"> <mat-icon class="delete-icon">delete_forever</mat-icon></button></td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  <mat-paginator #paginator
+  <mat-paginator style="min-width: 510px;" #paginator
       [length]="dataSource?.data.length"
       [pageIndex]="0"
-      [pageSize]="50"
+      [pageSize]="25"
       [pageSizeOptions]="[15, 25, 50, 100, 250]">
   </mat-paginator>
 </div>

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
@@ -13,6 +13,7 @@ import { EventsListDataSource, EventsListItem } from './events-list-datasource';
   styleUrls: ['./events-list.component.scss']
 })
 export class EventsListComponent implements AfterViewInit, OnInit {
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatTable) table: MatTable<EventsListItem>;
@@ -20,6 +21,15 @@ export class EventsListComponent implements AfterViewInit, OnInit {
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = [ 'date', 'name', 'category', 'cost', 'edit', 'delete'];
+
+  years: any[] = [2020, 2019, 2018]
+  categories: string[] = ['Art', 'Ceremony', 'Concert', 'Conference', 'Festival', 'Tournament', 'Trip', 'Sport'];
+  
+  searchText: string = ""
+
+  @HostListener('input') oninput() {
+    this.searchItems();
+  }
 
   constructor(
     private eventService: EventService,
@@ -29,6 +39,7 @@ export class EventsListComponent implements AfterViewInit, OnInit {
 
   ngOnInit() {
     this.dataSource = new EventsListDataSource(this.eventService, this.utilsService);
+    this.fetchYears()
   }
 
   ngAfterViewInit() {
@@ -51,5 +62,41 @@ export class EventsListComponent implements AfterViewInit, OnInit {
 
   update(id: number): void {
     this.router.navigateByUrl(`/update-event/${id}`)
+  }
+
+  fetchYears(): void {
+    this.eventService.getYears().subscribe(
+      res => {
+        this.years = res.reverse()
+      },
+      err => {
+        console.log(err)
+        this.utilsService.openFailSnackBar("Failed item deletion!")
+      }
+    )
+  }
+
+  searchItems() {
+    if (this.searchText) {
+      this.dataSource.data = this.dataSource.filterByName(this.searchText)
+    } else {
+      this.dataSource.data = this.dataSource.initialData
+    }
+  }
+
+  selectCategory(category: string) {
+    if (category === undefined || category === "") {
+      this.dataSource.data = this.dataSource.initialData
+    } else {
+      this.dataSource.data = this.dataSource.filterByCategory(category)
+    }
+  }
+
+  selectYear(selectedYear: number) {
+    if (selectedYear === undefined) {
+      this.dataSource.data = this.dataSource.initialData
+    } else {
+      this.dataSource.data = this.dataSource.filterByYear(selectedYear)
+    }
   }
 }
