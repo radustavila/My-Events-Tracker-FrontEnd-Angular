@@ -23,7 +23,6 @@
         <mat-label>Search by Event</mat-label>
         <input [(ngModel)]="searchText" class="search-input" matInput placeholder="Event name">
       </mat-form-field>
-      
     <div>
       <mat-icon style="margin-top: 10px;">search</mat-icon>
     </div>
@@ -41,7 +40,7 @@
     <!-- Name Column -->
     <ng-container class="container-name" matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-      <td mat-cell *matCellDef="let row">{{row.name}}</td>
+      <td mat-cell *matCellDef="let row"><a style="text-decoration: none; color: #3c0074; font-weight: 400;" routerLink="/add-event">{{row.name}}</a> </td>
     </ng-container>
     
     <!-- Category Column -->

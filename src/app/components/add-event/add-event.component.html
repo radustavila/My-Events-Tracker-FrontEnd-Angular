@@ -51,7 +51,7 @@
           </div>
           <!-- DATE -->
           <div class="row" style="margin-top: 2px;">
-            <mat-form-field color="accent">
+            <mat-form-field style="width: 100%;" color="accent">
               <mat-label>Date*</mat-label>
               <input matInput [matDatepicker]="picker2" placeholder="Date (mm/dd/yyyy)" formControlName="date">
               <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
@@ -73,7 +73,7 @@
       <div class="row">
         <div class="col images-container"> 
           <div *ngFor="let url of urls; let i = index" style="text-align: center;">
-            <img [src]="url" style="padding: 15px 15px 0 15px; cursor: pointer;" (click)="openDialog(url)" width="180px">
+            <img [src]="url" class="image" (click)="openDialog(url)" >
             <button mat-button (click)="delete(i)"> <mat-icon>delete_forever</mat-icon></button>
           </div>
         </div>  
@@ -81,6 +81,17 @@
       <div class="row">
         <div class="col"> 
           <div [innerHtml]='msg' *ngIf="msg" style="color: red;"></div>
+        </div>  
+      </div>  
+      <div class="row">
+        <div class="col map"> 
+          <mat-form-field class="search-field" appearance>
+            <mat-label>Enter Address</mat-label>
+            <input matInput placeholder="Location is optional" (keydown.enter)="$event.preventDefault()" autocorrect="off" autocapitalize="off" spellcheck="off" #search>
+          </mat-form-field>
+          <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+            <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+          </agm-map>
         </div>  
       </div>  
     </mat-card-content>

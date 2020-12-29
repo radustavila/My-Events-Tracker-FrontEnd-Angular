@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, NgZone, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { EventService } from 'src/app/services/event.service';
 import { MyEvent } from 'src/app/models/my-event';
@@ -7,6 +7,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MapsAPILoader } from '@agm/core';
 
 @Component({
   selector: 'app-add-event',
@@ -41,6 +42,15 @@ export class AddEventComponent implements OnInit {
   msg = "";
   urls = new Array<string>();
 
+  latitude: number;
+  longitude: number;
+  zoom: number;
+  address: string;
+  geoCoder: any
+
+  @ViewChild('search')
+  public searchElementRef: ElementRef;
+
 
   constructor(
     private fb: FormBuilder,
@@ -49,10 +59,14 @@ export class AddEventComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private location: Location,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone
   ) {}
 
   ngOnInit(): void {
+    this.loadPlaces()
+
     if (this.location.path().startsWith("/update-event")) {
       this.modifyEvent = true
       this.eventTitle = "Update"
@@ -60,15 +74,54 @@ export class AddEventComponent implements OnInit {
         res => {
           this.eventForm.controls["eventName"].setValue(res.name)
           this.eventForm.controls["category"].setValue(res.category)
-          this.eventForm.controls["date"].setValue(new Date(res.date))
           this.eventForm.controls["cost"].setValue(res.cost)
+          this.eventForm.controls["date"].setValue(new Date(res.date))
+          this.eventForm.controls['details'].setValue(res.details),
           this.urls = res.picturesList
+          this.latitude = res.latitude;
+          this.longitude = res.longitude;
         },
         err => {
           this.utilsService.openFailSnackBar("This event does not exist!")
           this.router.navigateByUrl("/add-event")
         }
       )
+    }
+  }
+
+  private loadPlaces(): void {
+    this.mapsAPILoader.load().then(() => {
+      this.setCurrentLocation();
+      this.geoCoder = new google.maps.Geocoder;
+
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          //get the place result
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          console.log(place)
+          //verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            console.log('not found')
+            return;
+          }
+
+          //set latitude, longitude and zoom
+          this.latitude = place.geometry.location.lat();
+          this.longitude = place.geometry.location.lng();
+          this.zoom = 12;
+        });
+      });
+    });
+  }
+
+  private setCurrentLocation() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 15;
+      });
     }
   }
 
@@ -80,9 +133,12 @@ export class AddEventComponent implements OnInit {
       category: this.eventForm.controls['category'].value,
       cost: this.eventForm.controls['cost'].value ? this.eventForm.controls['cost'].value : 0,
       date: date,
-      picturesList: this.urls
+      details: this.eventForm.controls['details'].value,
+      picturesList: this.urls,
+      latitude: this.latitude, 
+      longitude: this.longitude
     }
-    console.log(event.picturesList)
+    console.log(event)
     this.eventService.save(event).subscribe(
       res => {
         if (this.modifyEvent) {

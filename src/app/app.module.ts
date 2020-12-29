@@ -45,6 +45,7 @@ import { MiniCardComponent } from './components/dashboard/mini-card/mini-card.co
 import { EventsTableComponent } from './components/dashboard/events-table/events-table.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,11 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatListModule,
     FlexLayoutModule,
     ChartsModule,
-    MatDialogModule
+    MatDialogModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCV7wtr26OCe-atoAmHdZsK6Zcj4K-_RXc',
+      libraries: ['places']
+    })
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
@@ -102,3 +107,4 @@ import {MatDialogModule} from '@angular/material/dialog';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

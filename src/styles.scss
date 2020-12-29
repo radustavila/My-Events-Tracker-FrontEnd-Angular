@@ -10,24 +10,35 @@ body {
 
 
 .snackbar-fail {
-    background-color: #b00020;
-    color: #ffffff;
-  }
-  
-  .snackbar-fail .mat-simple-snackbar-action {
-    background-color: #e0dfdf;
-    color: #000000;
-    border-radius: 10px;
-  }
-  
-  .snackbar-success {
-    background-color: #33691e;
-    color: #ffffff;
-  }
-  
-  .snackbar-success .mat-simple-snackbar-action {
-    background-color: #c5e1a5;
-    color: #000000;
-    border-radius: 10px;
-  }
-  
+  background-color: #b00020;
+  color: #ffffff;
+}
+
+.snackbar-fail .mat-simple-snackbar-action {
+  background-color: #e0dfdf;
+  color: #000000;
+  border-radius: 10px;
+}
+
+.snackbar-success {
+  background-color: #33691e;
+  color: #ffffff;
+}
+
+.snackbar-success .mat-simple-snackbar-action {
+  background-color: #c5e1a5;
+  color: #000000;
+  border-radius: 10px;
+}
+
+
+
+::-webkit-scrollbar {
+  height: 10px;
+  width: 8px;
+  overflow-y: scroll;
+  opacity: 1;
+}
+::-webkit-scrollbar-thumb {
+  background: #3F51B5;
+}
