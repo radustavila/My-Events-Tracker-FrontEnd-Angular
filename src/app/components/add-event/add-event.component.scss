@@ -3,13 +3,13 @@
 }
 
 .shipping-card {
-  min-width: 250px;
+  min-width: 450px;
   width: 50%;
-  max-width: 400px;
+  max-width: 600px;
   margin: 20px auto;
   margin-top: 100px;
-  background-image: url('/assets/images/mat-card-background.jpg');
-  background-size: cover;
+  // background-image: url('/assets/images/mat-card-background.jpg');
+  // background-size: cover;
 }
 
 .mat-radio-button {
@@ -38,4 +38,49 @@
 
 .calendar {
   text-align: center;
+}
+
+
+.choose::-webkit-file-upload-button {
+  color: white;
+  display: inline-block;
+  background: #1CB6E0;
+  border: none;
+  padding: 7px 15px;
+  border-radius: 3px;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 10pt;
+}
+
+.images-container {
+  display: flex;
+  flex-direction: row;
+  overflow-y: auto;
+  max-width: 400px;
+  background-color: #eeeeee;
+  margin-top: 10px;
+}
+
+.persons-container {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-width: 400px;
+  max-height: 180px;
+  // background-color: #f5f4f4;
+}
+
+::-webkit-scrollbar {
+  height: 10px;
+  width: 8px;
+  overflow-y: scroll;
+  background: #c4c4c4;
+  box-shadow: inset 0 0 4px #c4c4c4;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3F51B5;
+  border-radius: 10px;
 }

@@ -1,24 +1,24 @@
-<form [formGroup]="eventForm" novalidate (ngSubmit)="onSubmit()">
+<form [formGroup]="eventForm" novalidate>
   <mat-card class="shipping-card">
     <mat-card-header>
       <mat-card-title>{{eventTitle}} Event</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <div class="row">
+        <!-- EVENT NAME -->
         <div class="col">
           <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Event</mat-label>
+            <mat-label>Event*</mat-label>
             <input matInput placeholder="Event name" formControlName="eventName">
             <mat-error *ngIf="eventForm.controls['eventName'].hasError('required')">
               Event name is <strong>required</strong>
             </mat-error>
           </mat-form-field>
         </div>
-      </div>
-      <div class="row">
+        <!-- CATEGORY -->
         <div class="col">
           <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Category</mat-label>
+            <mat-label>Category*</mat-label>
             <mat-select placeholder="Category" formControlName="category">
               <mat-option *ngFor="let category of categories" [value]="category.name">
                 {{ category.name }}
@@ -31,30 +31,63 @@
         </div>
       </div>
       <div class="row">
+        <!-- DETAILS -->
         <div class="col">
           <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Cost (€)</mat-label>
-            <input matInput min="0" placeholder="Cost is optional" type="number" formControlName="cost">
-            <mat-error *ngIf="eventForm.controls['cost'].hasError('min')">
-              Cost cannot lower than <strong>0</strong>
-            </mat-error>
+            <mat-label>Details</mat-label>
+            <textarea style="resize: none;" rows="5" matInput placeholder="Details are optional&#10;e.g., friends names, how did you feel, etc" formControlName="details"></textarea>
           </mat-form-field>
+        </div>
+        <div class="col">
+          <!-- COST -->
+          <div class="row">
+            <mat-form-field appearance="fill" class="full-width">
+              <mat-label>Cost (€)</mat-label>
+              <input matInput min="0" placeholder="Cost is optional" type="number" formControlName="cost">
+              <mat-error *ngIf="eventForm.controls['cost'].hasError('min')">
+                Cost cannot lower than <strong>0</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <!-- DATE -->
+          <div class="row" style="margin-top: 2px;">
+            <mat-form-field color="accent">
+              <mat-label>Date*</mat-label>
+              <input matInput [matDatepicker]="picker2" placeholder="Date (mm/dd/yyyy)" formControlName="date">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2 color="accent"></mat-datepicker>
+            </mat-form-field>
+          </div>
         </div>
       </div>
 
       <div class="row">
+        
+      </div>
+      <!-- UPLOAD FILES -->
+      <div class="row">
         <div class="col">
-          <mat-form-field color="accent">
-            <mat-label>Date</mat-label>
-            <input matInput [matDatepicker]="picker2" placeholder="Date (mm/dd/yyyy)" formControlName="date">
-            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-            <mat-datepicker #picker2 color="accent"></mat-datepicker>
-          </mat-form-field>
+          <input class="choose" type="file" id="file" multiple (change)="getFileDetails($event)">
         </div>
       </div>
+      <div class="row">
+        <div class="col images-container"> 
+          <div *ngFor="let url of urls; let i = index" style="text-align: center;">
+            <img [src]="url" style="padding: 15px 15px 0 15px; cursor: pointer;" (click)="openDialog(url)" width="180px">
+            <button mat-button (click)="delete(i)"> <mat-icon>delete_forever</mat-icon></button>
+          </div>
+        </div>  
+      </div>  
+      <div class="row">
+        <div class="col"> 
+          <div [innerHtml]='msg' *ngIf="msg" style="color: red;"></div>
+        </div>  
+      </div>  
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit" [disabled]="eventForm.invalid">{{eventTitle}} Event</button>
+      <div style="text-align: center;">
+        <button mat-raised-button color="primary" type="submit" (click)="onSubmit()" [disabled]="eventForm.invalid">{{eventTitle}} Event</button>
+      </div>
     </mat-card-actions>
   </mat-card>
 </form>

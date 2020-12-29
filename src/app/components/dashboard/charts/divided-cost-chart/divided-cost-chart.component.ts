@@ -23,15 +23,18 @@ export class DividedCostChartComponent implements OnInit {
     },
     scales: { 
       yAxes: [{
-         scaleLabel: {
-            display: true,
-            labelString: 'Number of Events'
-         }
+        scaleLabel: {
+          display: true,
+          labelString: 'Number of Events'
+        },
+        ticks: {
+          beginAtZero: true
+        }
       }],
       xAxes: [{
         scaleLabel: {
-           display: true,
-           labelString: 'Euro'
+          display: true,
+          labelString: 'Euro'
         }
      }],
     }
@@ -51,9 +54,7 @@ export class DividedCostChartComponent implements OnInit {
   ngOnInit() {
     this.statsService.getDividedCost().subscribe(
       res => {
-        var values = []
         for (var key in res) {
-          values.push(res[key])
           this.barChartData[0].data.push(res[key])
         }
       }

@@ -4,4 +4,5 @@ export class MyEvent {
     category: string
     cost: number
     date: string
+    picturesList: string[]
 }
