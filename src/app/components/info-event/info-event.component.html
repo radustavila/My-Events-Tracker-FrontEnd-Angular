@@ -1,0 +1,30 @@
+<p>info-event works!</p>
+<article style="width: 50%;margin: 0 auto;">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>{{event.name}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            
+            <mat-grid-list cols="4" rowHeight="100px">
+                <mat-grid-tile
+                    *ngFor="let tile of tiles"
+                    [colspan]="tile.cols"
+                    [rowspan]="tile.rows"
+                    [style.background]="tile.color">
+                    <p>Category {{event.category}}</p>
+                </mat-grid-tile>
+              </mat-grid-list>
+
+            <section style="display: flex;flex-direction: column;">
+                <ul style="list-style-type: none;">
+                    <li><b>Category</b> {{event.category}}</li>
+                </ul>
+                <p>Category {{event.category}}</p>
+                <p>Cost {{event.cost}}</p>
+                <p>Date {{event.date}}</p>
+                <p>Details {{event.details}}</p>
+            </section>
+        </mat-card-content>
+    </mat-card>
+</article>

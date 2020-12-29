@@ -39,7 +39,10 @@ export class NavigationComponent implements OnInit {
     } else if (this.location.path().startsWith('/update-event')) {
       this.title = 'Update event'
       this.visible = true
-    } else {
+    } else if (this.location.path().startsWith('/info-event')) {
+      this.title = 'Information'
+      this.visible = true
+    }else {
       this.title = 'My Events Tracker'
       this.visible = false
     }
@@ -57,6 +60,9 @@ export class NavigationComponent implements OnInit {
       this.visible = true
     } else if (path.startsWith('/update-event')) {
       this.title = 'Update event'
+      this.visible = true
+    } else if (path.startsWith('/info-event')) {
+      this.title = 'Information'
       this.visible = true
     } else if (path === '/login' || path === '/register') {
       this.title = 'My Events Tracker'

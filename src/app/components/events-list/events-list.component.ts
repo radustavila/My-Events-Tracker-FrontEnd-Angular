@@ -48,6 +48,10 @@ export class EventsListComponent implements AfterViewInit, OnInit {
     this.table.dataSource = this.dataSource;
   }
 
+  redirectToInfo(id: number): void {
+    this.router.navigateByUrl(`/info-event/${id}`)
+  }
+
   delete(id: number): void {
     this.eventService.delete(id).subscribe(
       res => {

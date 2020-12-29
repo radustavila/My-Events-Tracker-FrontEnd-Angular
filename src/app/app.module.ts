@@ -46,6 +46,7 @@ import { EventsTableComponent } from './components/dashboard/events-table/events
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { AgmCoreModule } from '@agm/core';
+import { InfoEventComponent } from './components/info-event/info-event.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { AgmCoreModule } from '@agm/core';
     DividedCostChartComponent,
     MiniCardComponent,
     EventsTableComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    InfoEventComponent
   ],
   imports: [
     BrowserModule,
