@@ -65,6 +65,7 @@ export class AddEventComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.urls = []
     this.loadPlaces()
 
     if (this.location.path().startsWith("/update-event")) {
@@ -99,7 +100,6 @@ export class AddEventComponent implements OnInit {
         this.ngZone.run(() => {
           //get the place result
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-          console.log(place)
           //verify result
           if (place.geometry === undefined || place.geometry === null) {
             console.log('not found')
@@ -124,6 +124,11 @@ export class AddEventComponent implements OnInit {
       });
     }
   }
+  
+  // "@agm/core": "^3.0.0-beta.0"
+  // "@angular/google-maps": "^10.2.7",
+  // "@types/googlemaps": "3.39.14"
+
 
   onSubmit() {
     const date = moment(this.eventForm.controls['date'].value).format("YYYY-MM-DD");
@@ -138,7 +143,7 @@ export class AddEventComponent implements OnInit {
       latitude: this.latitude, 
       longitude: this.longitude
     }
-    console.log(event)
+
     this.eventService.save(event).subscribe(
       res => {
         if (this.modifyEvent) {
@@ -153,6 +158,8 @@ export class AddEventComponent implements OnInit {
         this.utilsService.openFailSnackBar("Saving the event failed!")
       }
     )
+    
+    console.log(this.urls)
   }
 
   
@@ -172,8 +179,7 @@ export class AddEventComponent implements OnInit {
         this.files.push(e.target.files[index]);
       }
     }
-
-    this.urls = [];
+    
     for (let file of this.files) {
       let reader = new FileReader();
       reader.onload = (e: any) => {
@@ -193,6 +199,7 @@ export class AddEventComponent implements OnInit {
 
   delete(index: number): void {
     this.urls.splice(index, 1)
+    this.files.splice(index, 1)
   }
 }
 

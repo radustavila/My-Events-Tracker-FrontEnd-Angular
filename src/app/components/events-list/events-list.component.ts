@@ -26,6 +26,7 @@ export class EventsListComponent implements AfterViewInit, OnInit {
   categories: string[] = ['Art', 'Ceremony', 'Concert', 'Conference', 'Festival', 'Tournament', 'Trip', 'Sport'];
   
   searchText: string = ""
+  visible: boolean = false
 
   @HostListener('input') oninput() {
     this.searchItems();
@@ -40,6 +41,7 @@ export class EventsListComponent implements AfterViewInit, OnInit {
   ngOnInit() {
     this.dataSource = new EventsListDataSource(this.eventService, this.utilsService);
     this.fetchYears()
+    this.visible = true
   }
 
   ngAfterViewInit() {

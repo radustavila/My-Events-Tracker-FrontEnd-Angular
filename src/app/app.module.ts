@@ -45,6 +45,7 @@ import { MiniCardComponent } from './components/dashboard/mini-card/mini-card.co
 import { EventsTableComponent } from './components/dashboard/events-table/events-table.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { AgmCoreModule } from '@agm/core';
 import { InfoEventComponent } from './components/info-event/info-event.component';
 
@@ -96,6 +97,7 @@ import { InfoEventComponent } from './components/info-event/info-event.component
     FlexLayoutModule,
     ChartsModule,
     MatDialogModule,
+    MatProgressSpinnerModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCV7wtr26OCe-atoAmHdZsK6Zcj4K-_RXc',
       libraries: ['places']

@@ -42,3 +42,19 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #3F51B5;
 }
+
+
+.image-dialog {
+  width: 100%;
+  max-width: 1200px;
+}
+
+
+#loading{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -75px 0 0 -75px;
+  border-radius: 50%;
+  z-index: 1;
+}

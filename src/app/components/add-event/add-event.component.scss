@@ -91,7 +91,7 @@
 }
 
 agm-map {
-  height: 200px;
+  height: 250px;
 }
 
 .map {
@@ -104,4 +104,8 @@ agm-map {
   @media (max-width: 725px) {
     max-width: 200px;
   }
+}
+
+.image-dialog {
+  width: 12px;
 }
