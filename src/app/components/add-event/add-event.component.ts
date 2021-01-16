@@ -35,8 +35,10 @@ export class AddEventComponent implements OnInit {
     {name: 'Sport'}
   ];
 
+  visible: boolean = true
   modifyEvent: boolean = false;
   eventTitle: string = "Add"
+  
   
   files = [];
   msg = "";
@@ -64,11 +66,12 @@ export class AddEventComponent implements OnInit {
     private ngZone: NgZone
   ) {}
 
+
   ngOnInit(): void {
     this.urls = []
-    this.loadPlaces()
 
     if (this.location.path().startsWith("/update-event")) {
+      this.visible = false
       this.modifyEvent = true
       this.eventTitle = "Update"
       this.eventService.getOne(this.route.snapshot.params.id).subscribe(
@@ -81,12 +84,20 @@ export class AddEventComponent implements OnInit {
           this.urls = res.picturesList
           this.latitude = res.latitude;
           this.longitude = res.longitude;
+          if (res) {
+            this.utilsService.hideloader()
+            this.visible = true
+            this.loadPlaces()
+          }
         },
         err => {
           this.utilsService.openFailSnackBar("This event does not exist!")
           this.router.navigateByUrl("/add-event")
         }
       )
+    } else {
+      this.loadPlaces()
+      this.utilsService.hideloader()
     }
   }
 
@@ -95,31 +106,35 @@ export class AddEventComponent implements OnInit {
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
 
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
-      autocomplete.addListener("place_changed", () => {
-        this.ngZone.run(() => {
-          //get the place result
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-          //verify result
-          if (place.geometry === undefined || place.geometry === null) {
-            console.log('not found')
-            return;
-          }
+      setTimeout(() => {
+        let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+        autocomplete.addListener("place_changed", () => {
+          this.ngZone.run(() => {
+            //get the place result
+            let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+            //verify result
+            if (place.geometry === undefined || place.geometry === null) {
+              console.log('not found')
+              return;
+            }
 
-          //set latitude, longitude and zoom
-          this.latitude = place.geometry.location.lat();
-          this.longitude = place.geometry.location.lng();
-          this.zoom = 12;
+            //set latitude, longitude and zoom
+            this.latitude = place.geometry.location.lat();
+            this.longitude = place.geometry.location.lng();
+            this.zoom = 12;
+          });
         });
-      });
+      }, 1);
     });
   }
 
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
+        if (!this.modifyEvent) {
+          this.latitude = position.coords.latitude;
+          this.longitude = position.coords.longitude;
+        }
         this.zoom = 15;
       });
     }
@@ -197,7 +212,6 @@ export class AddEventComponent implements OnInit {
 }
 
 
-
 export interface DialogData {
   image: string
 }
@@ -212,5 +226,4 @@ export class DialogData {
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {
   }
-
 }

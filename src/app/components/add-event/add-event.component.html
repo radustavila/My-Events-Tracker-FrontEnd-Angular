@@ -1,5 +1,6 @@
+<mat-spinner color="primary" id="loading"></mat-spinner>
 <form [formGroup]="eventForm" novalidate>
-  <mat-card class="shipping-card">
+  <mat-card *ngIf="visible" class="shipping-card">
     <mat-card-header>
       <mat-card-title>{{eventTitle}} Event</mat-card-title>
     </mat-card-header>

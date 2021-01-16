@@ -35,22 +35,12 @@ export class EventsListDataSource extends DataSource<EventsListItem> {
     this.fetchData()
   }
 
-  hideloader(): void { 
-  
-    // Setting display of spinner 
-    // element to none 
-    document.getElementById('loading') 
-        .style.display = 'none'; 
-  } 
 
   fetchData(): void {
     this.eventService.get().subscribe(
       res => {
         this.data = res
         this.initialData = res
-        if (res) { 
-          this.hideloader(); 
-        } 
       },
       err => {
         console.log(err)

@@ -47,7 +47,7 @@ export class InfoEventComponent implements OnInit {
         }
         this.event = event1
         if (res) { 
-          this.hideloader(); 
+          this.utilsService.hideloader()
           this.visible = true
         } 
       },
@@ -68,12 +68,4 @@ export class InfoEventComponent implements OnInit {
       }
     });
   }
-
-  hideloader(): void { 
-  
-    // Setting display of spinner 
-    // element to none 
-    document.getElementById('loading') 
-        .style.display = 'none'; 
-  } 
 }

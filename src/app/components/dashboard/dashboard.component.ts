@@ -36,6 +36,7 @@ export class DashboardComponent implements OnInit {
   );
 
   miniCardData: Summary[];
+  visible: boolean = false
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -47,6 +48,10 @@ export class DashboardComponent implements OnInit {
     this.statsService.getCostEventsSummary().subscribe(
       res => {
         this.miniCardData = res
+        if (res) { 
+          this.utilsService.hideloader()
+          this.visible = true
+        } 
       },
       err => {
         if (err.status === 0) {

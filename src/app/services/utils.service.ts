@@ -28,4 +28,10 @@ export class UtilsService {
     this.snackBar.open(message, "Close", this.config);
   }
 
+  hideloader(): void { 
+    // Setting display of spinner 
+    // element to none 
+    document.getElementById('loading') 
+        .style.display = 'none'; 
+  } 
 }

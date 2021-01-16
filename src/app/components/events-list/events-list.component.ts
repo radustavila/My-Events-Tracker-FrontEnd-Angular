@@ -41,7 +41,6 @@ export class EventsListComponent implements AfterViewInit, OnInit {
   ngOnInit() {
     this.dataSource = new EventsListDataSource(this.eventService, this.utilsService);
     this.fetchYears()
-    this.visible = true
   }
 
   ngAfterViewInit() {
@@ -74,6 +73,10 @@ export class EventsListComponent implements AfterViewInit, OnInit {
     this.eventService.getYears().subscribe(
       res => {
         this.years = res.reverse()
+        if (res) { 
+          this.hideloader(); 
+          this.visible = true
+        } 
       },
       err => {
         console.log(err)
@@ -105,4 +108,12 @@ export class EventsListComponent implements AfterViewInit, OnInit {
       this.dataSource.data = this.dataSource.filterByYear(selectedYear)
     }
   }
+
+  
+  hideloader(): void { 
+    // Setting display of spinner 
+    // element to none 
+    document.getElementById('loading') 
+        .style.display = 'none'; 
+  } 
 }
