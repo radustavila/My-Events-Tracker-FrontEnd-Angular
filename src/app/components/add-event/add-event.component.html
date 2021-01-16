@@ -92,7 +92,8 @@
             <input matInput placeholder="Location is optional" (keydown.enter)="$event.preventDefault()" autocorrect="off" autocapitalize="off" spellcheck="off" #search>
           </mat-form-field>
           <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
-            <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+            <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+            (dragEnd)="markerDragEnd($event)"></agm-marker>
           </agm-map>
         </div>  
       </div>  
