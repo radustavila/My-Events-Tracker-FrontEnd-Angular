@@ -37,8 +37,7 @@ export class RegisterComponent {
         lastName: this.registerForm.controls['lastName'].value,
         username: this.registerForm.controls['username'].value,
         email: this.registerForm.controls['emailAddress'].value,
-        password: this.registerForm.controls['password1'].value,
-        token: ""
+        password: this.registerForm.controls['password1'].value
       }
 
       this.authService.register(user).subscribe(res => {
