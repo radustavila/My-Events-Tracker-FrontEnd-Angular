@@ -60,6 +60,17 @@ export class EventsListDataSource extends DataSource<EventsListItem> {
     return filteredData
   }
 
+  filter(category: string, year: number): EventsListItem[] {
+    let filteredData: EventsListItem[] = []
+    this.initialData.forEach(element => {
+      if (element.category === category && Number(element.date.substring(0, 4)) === year) {
+
+        filteredData.push(element)
+      }
+    });
+    return filteredData
+  }
+
   filterByCategory(filter: string): EventsListItem[] {
     var filteredData: EventsListItem[] = []
     this.initialData.forEach(element => {

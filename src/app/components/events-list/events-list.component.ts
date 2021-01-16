@@ -27,6 +27,8 @@ export class EventsListComponent implements AfterViewInit, OnInit {
   
   searchText: string = ""
   visible: boolean = false
+  category: string
+  year: number
 
   @HostListener('input') oninput() {
     this.searchItems();
@@ -74,7 +76,7 @@ export class EventsListComponent implements AfterViewInit, OnInit {
       res => {
         this.years = res.reverse()
         if (res) { 
-          this.hideloader(); 
+          this.utilsService.hideloader()
           this.visible = true
         } 
       },
@@ -94,26 +96,36 @@ export class EventsListComponent implements AfterViewInit, OnInit {
   }
 
   selectCategory(category: string) {
-    if (category === undefined || category === "") {
-      this.dataSource.data = this.dataSource.initialData
+    if (this.year != undefined) {
+      if (category === undefined) {
+        this.dataSource.data = this.dataSource.filterByYear(this.year)
+      } else {
+        this.dataSource.data = this.dataSource.filter(category, this.year)
+      }
     } else {
-      this.dataSource.data = this.dataSource.filterByCategory(category)
+      if (category === undefined) {
+        this.dataSource.data = this.dataSource.initialData
+      } else {
+        this.dataSource.data = this.dataSource.filterByCategory(category)
+      }
     }
+    this.category = category
   }
 
   selectYear(selectedYear: number) {
-    if (selectedYear === undefined) {
-      this.dataSource.data = this.dataSource.initialData
+    if (this.category != undefined) {
+      if (selectedYear === undefined) {
+        this.dataSource.data = this.dataSource.filterByCategory(this.category)
+      } else {
+        this.dataSource.data = this.dataSource.filter(this.category, selectedYear)
+      }
     } else {
-      this.dataSource.data = this.dataSource.filterByYear(selectedYear)
+      if (selectedYear === undefined) {
+        this.dataSource.data = this.dataSource.initialData
+      } else {
+        this.dataSource.data = this.dataSource.filterByYear(selectedYear)
+      }
     }
+    this.year = selectedYear
   }
-
-  
-  hideloader(): void { 
-    // Setting display of spinner 
-    // element to none 
-    document.getElementById('loading') 
-        .style.display = 'none'; 
-  } 
 }
