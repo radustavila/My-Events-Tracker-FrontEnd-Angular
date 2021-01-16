@@ -35,7 +35,7 @@ export class RegisterComponent {
         id: null,
         firstName: this.registerForm.controls['firstName'].value,
         lastName: this.registerForm.controls['lastName'].value,
-        username: this.registerForm.controls['username'].value,
+        username: this.registerForm.controls['username'].value.toUpperCase(),
         email: this.registerForm.controls['emailAddress'].value,
         password: this.registerForm.controls['password1'].value
       }

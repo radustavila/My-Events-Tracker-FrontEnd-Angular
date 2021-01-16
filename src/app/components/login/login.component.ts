@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     let user: UserLogin = {
-      username: this.loginForm.controls['username'].value,
+      username: this.loginForm.controls['username'].value.toUpperCase(),
       password: this.loginForm.controls['password'].value
     }
 
