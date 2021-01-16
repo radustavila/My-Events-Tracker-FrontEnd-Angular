@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import { StatisticsService } from 'src/app/services/statistics.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-monthly-expenses-chart',
@@ -50,7 +51,8 @@ export class MonthlyExpensesChartComponent implements OnInit {
   public lineChartPlugins = [];
 
   constructor(
-    private statsService: StatisticsService
+    private statsService: StatisticsService,
+    private utilsService: UtilsService
   ) { }
 
   ngOnInit() {
@@ -65,7 +67,11 @@ export class MonthlyExpensesChartComponent implements OnInit {
         }
       }, 
       err => {
-        console.log(err)
+        if (err.status === 0) {
+          this.utilsService.openFailSnackBar("Bad Request!")
+        } else {
+          this.utilsService.openFailSnackBar(err.error)
+        }
       }
     )
   }

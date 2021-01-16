@@ -45,7 +45,11 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl('/dashboard')
       },
       err => {
-        this.utilsService.openFailSnackBar(err.error)
+        if (err.status === 0) {
+          this.utilsService.openFailSnackBar("Bad Request!")
+        } else {
+          this.utilsService.openFailSnackBar(err.error)
+        }
       }
     )
   }

@@ -3,6 +3,7 @@ import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { StatisticsService } from 'src/app/services/statistics.service';
 import { Summary } from 'src/app/models/summary';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -38,7 +39,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private statsService: StatisticsService
+    private statsService: StatisticsService,
+    private utilsService: UtilsService
   ) {}
 
   ngOnInit(): void {
@@ -47,7 +49,11 @@ export class DashboardComponent implements OnInit {
         this.miniCardData = res
       },
       err => {
-        console.log(err)
+        if (err.status === 0) {
+          this.utilsService.openFailSnackBar("Bad Request!")
+        } else {
+          this.utilsService.openFailSnackBar(err.error)
+        }
       }
     )
   }

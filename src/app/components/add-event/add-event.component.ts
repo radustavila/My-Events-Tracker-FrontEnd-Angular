@@ -124,11 +124,6 @@ export class AddEventComponent implements OnInit {
       });
     }
   }
-  
-  // "@agm/core": "^3.0.0-beta.0"
-  // "@angular/google-maps": "^10.2.7",
-  // "@types/googlemaps": "3.39.14"
-
 
   onSubmit() {
     const date = moment(this.eventForm.controls['date'].value).format("YYYY-MM-DD");
@@ -154,12 +149,10 @@ export class AddEventComponent implements OnInit {
         this.router.navigateByUrl('/events')
       },
       err => {
-        console.log(err)
+        // console.log(err)
         this.utilsService.openFailSnackBar("Saving the event failed!")
       }
     )
-    
-    console.log(this.urls)
   }
 
   

@@ -33,7 +33,11 @@ export class EventsTableDataSource extends DataSource<EventsListItem> {
       },
       err => {
         console.log(err)
-        this.utilsService.openFailSnackBar("Could not retrive data from server!")
+        if (err.status === 0) {
+          this.utilsService.openFailSnackBar("Bad Request!")
+        } else {
+          this.utilsService.openFailSnackBar("Could not retrive data from server!")
+        }
       }
     )
   }

@@ -57,6 +57,9 @@ export class DividedCostChartComponent implements OnInit {
         for (var key in res) {
           this.barChartData[0].data.push(res[key])
         }
+      }, 
+      err => {
+        console.log(err)
       }
     )
   }

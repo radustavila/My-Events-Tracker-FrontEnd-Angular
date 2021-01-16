@@ -48,6 +48,9 @@ export class CategoryChartComponent implements OnInit {
           this.pieChartData.push(res[key])
           this.totalCount += res[key]
         }
+        if (this.pieChartLabels.length === 0) {
+          this.pieChartLabels.push("No Records")
+        }
       },
       err => {
         console.log(err)
