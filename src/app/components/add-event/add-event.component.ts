@@ -97,7 +97,6 @@ export class AddEventComponent implements OnInit {
       )
     } else {
       this.loadPlaces()
-      this.utilsService.hideloader()
     }
   }
 

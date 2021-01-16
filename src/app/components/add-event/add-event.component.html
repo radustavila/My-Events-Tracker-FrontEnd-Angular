@@ -1,4 +1,4 @@
-<mat-spinner color="primary" id="loading"></mat-spinner>
+<mat-spinner *ngIf="modifyEvent" color="primary" id="loading"></mat-spinner>
 <form [formGroup]="eventForm" novalidate>
   <mat-card *ngIf="visible" class="shipping-card">
     <mat-card-header>
