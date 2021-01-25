@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
@@ -17,6 +17,7 @@ export class EventsTableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatTable) table: MatTable<EventsListItem>;
   dataSource: EventsTableDataSource;
+  
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = [ 'date', 'name', 'category', 'cost'];
@@ -30,7 +31,7 @@ export class EventsTableComponent implements AfterViewInit, OnInit {
     this.dataSource = new EventsTableDataSource(
       this.eventService, 
       this.utilsService
-      );
+    );
   }
 
   ngAfterViewInit() {

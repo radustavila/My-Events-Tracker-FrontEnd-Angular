@@ -6,7 +6,6 @@ import { Observable, of as observableOf, merge } from 'rxjs';
 import { EventService } from 'src/app/services/event.service';
 import { EventsListItem } from '../../events-list/events-list-datasource';
 import { UtilsService } from 'src/app/services/utils.service';
-import { MyEvent } from 'src/app/models/my-event';
 
 /**
  * Data source for the EventsTable view. This class should
@@ -17,6 +16,7 @@ export class EventsTableDataSource extends DataSource<EventsListItem> {
   data: EventsListItem[];
   paginator: MatPaginator;
   sort: MatSort;
+  ifModifiedSince: boolean
 
   constructor(
     private eventService: EventService,
@@ -29,17 +29,29 @@ export class EventsTableDataSource extends DataSource<EventsListItem> {
   fetchData(): void {
     this.eventService.get().subscribe(
       res => {
-        this.data = res.sort((a, b) => compare(a.date, b.date, false))
+        this.data = res.body.sort((a, b) => compare(a.date, b.date, false))
+        localStorage.setItem('events', JSON.stringify(res.body))
+        localStorage.setItem("last-modified", res.headers.get("x-last-modified"))
       },
       err => {
         console.log(err)
-        if (err.status === 0) {
-          this.utilsService.openFailSnackBar("Bad Request!")
+        if (err.status === 304) {
+          const res = JSON.parse(localStorage.getItem('events'))
+          this.data = res.sort((a, b) => compare(a.date, b.date, false))
         } else {
-          this.utilsService.openFailSnackBar("Could not retrive data from server!")
+          console.log(err)
+          if (err.status === 0) {
+            this.utilsService.openFailSnackBar("Bad Request!")
+          } else {
+            this.utilsService.openFailSnackBar("Could not retrive data from server!")
+          }
         }
       }
     )
+    // else {
+    //   const res = JSON.parse(localStorage.getItem('events'))
+    //   this.data = res.sort((a, b) => compare(a.date, b.date, false))
+    // }
   }
 
   /**

@@ -37,6 +37,7 @@ export class DashboardComponent implements OnInit {
 
   miniCardData: Summary[];
   visible: boolean = false
+  ifModifiedSince: boolean = true
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -47,17 +48,26 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.statsService.getCostEventsSummary().subscribe(
       res => {
-        this.miniCardData = res
+        this.miniCardData = res.body
+        localStorage.setItem("mini-card-data", JSON.stringify(res.body))
+        // localStorage.setItem("last-modified", res.headers.get("x-last-modified"))
         if (res) { 
           this.utilsService.hideloader()
           this.visible = true
         } 
       },
       err => {
-        if (err.status === 0) {
+        if (err.status == 304) {
+          this.miniCardData = JSON.parse(localStorage.getItem("mini-card-data"))
+          this.utilsService.hideloader()
+          this.visible = true
+          this.ifModifiedSince = false
+        } else if (err.status === 0 || err.status === 400) {
           this.utilsService.openFailSnackBar("Bad Request!")
+        } else if (err.status >= 500) {
+          this.utilsService.openFailSnackBar("Server Error...")
         } else {
-          this.utilsService.openFailSnackBar(err.error)
+          console.log(err.error)
         }
       }
     )

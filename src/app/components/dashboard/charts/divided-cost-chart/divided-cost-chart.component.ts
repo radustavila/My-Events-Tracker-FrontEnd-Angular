@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import { StatisticsService } from 'src/app/services/statistics.service';
@@ -9,6 +9,8 @@ import { StatisticsService } from 'src/app/services/statistics.service';
   styleUrls: ['./divided-cost-chart.component.scss']
 })
 export class DividedCostChartComponent implements OnInit {
+
+  @Input() ifModifiedSince: boolean
 
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -52,16 +54,24 @@ export class DividedCostChartComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.statsService.getDividedCost().subscribe(
-      res => {
-        for (var key in res) {
-          this.barChartData[0].data.push(res[key])
+    if (this.ifModifiedSince) {
+      this.statsService.getDividedCost().subscribe(
+        res => {
+          for (var key in res) {
+            this.barChartData[0].data.push(res[key])
+          }
+          localStorage.setItem('divided-cost-chart', JSON.stringify(res))
+        }, 
+        err => {
+          console.log(err)
         }
-      }, 
-      err => {
-        console.log(err)
+      )
+    } else {
+      const res = JSON.parse(localStorage.getItem('divided-cost-chart'))
+      for (var key in res) {
+        this.barChartData[0].data.push(res[key])
       }
-    )
+    }
   }
 
 }

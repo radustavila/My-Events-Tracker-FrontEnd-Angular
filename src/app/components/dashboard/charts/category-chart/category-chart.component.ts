@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ChartOptions, ChartType } from 'chart.js';
 import { Label, SingleDataSet } from 'ng2-charts';
 import { StatisticsService } from 'src/app/services/statistics.service';
@@ -10,6 +10,7 @@ import { StatisticsService } from 'src/app/services/statistics.service';
 })
 export class CategoryChartComponent implements OnInit {
 
+  @Input() ifModifiedSince: boolean
   totalCount: number
 
   public pieChartOptions: ChartOptions = {
@@ -41,21 +42,34 @@ export class CategoryChartComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.statsService.getCategoryStats().subscribe(
-      res => {
-        for (var key in res) {
-          this.pieChartLabels.push(key)
-          this.pieChartData.push(res[key])
-          this.totalCount += res[key]
+    if (this.ifModifiedSince) {
+      this.statsService.getCategoryStats().subscribe(
+        res => {
+          for (var key in res) {
+            this.pieChartLabels.push(key)
+            this.pieChartData.push(res[key])
+            this.totalCount += res[key]
+          }
+          localStorage.setItem("category-chart", JSON.stringify(res))
+          if (this.pieChartLabels.length === 0) {
+            this.pieChartLabels.push("No Records")
+          }
+        },
+        err => {
+          console.log(err)
         }
-        if (this.pieChartLabels.length === 0) {
-          this.pieChartLabels.push("No Records")
-        }
-      },
-      err => {
-        console.log(err)
+      )
+    } else {
+      const res = JSON.parse(localStorage.getItem("category-chart"))
+      for (var key in res) {
+        this.pieChartLabels.push(key)
+        this.pieChartData.push(res[key])
+        this.totalCount += res[key]
       }
-    )
+      if (this.pieChartLabels.length === 0) {
+        this.pieChartLabels.push("No Records")
+      }
+    } 
   }
 
 }

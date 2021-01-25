@@ -21,6 +21,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const token: string = localStorage.getItem('token');
+    const lastModified: string = localStorage.getItem('last-modified') ? localStorage.getItem('last-modified') : "0"
 
     if (token && token !== '') {
       request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
@@ -29,6 +30,8 @@ export class AuthInterceptor implements HttpInterceptor {
     if (!request.headers.has('Content-Type')) {
       request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
     }
+
+    request = request.clone({ headers: request.headers.set('X-If-Modified-Since', lastModified) });
 
     return next.handle(request)
       .pipe(
@@ -45,7 +48,9 @@ export class AuthInterceptor implements HttpInterceptor {
             status: error.status
           };
           // console.log(data)
-          this.utilsService.openFailSnackBar("Request failed!")
+          if (error.status !== 304) {
+            this.utilsService.openFailSnackBar("Request failed!")
+          }
           return throwError(error);
         })
       );

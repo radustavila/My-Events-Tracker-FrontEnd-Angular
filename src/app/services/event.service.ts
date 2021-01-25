@@ -19,8 +19,8 @@ export class EventService {
     return this.httpClient.post<MyEvent>(`${this.host}/events`, event)
   }
 
-  public get(): Observable<MyEvent[]> {
-    return this.httpClient.get<MyEvent[]>(`${this.host}/events`)
+  public get(): Observable<any> {
+    return this.httpClient.get<MyEvent[]>(`${this.host}/events`, {observe: 'response'})
   }
 
   public getOne(id: number): Observable<MyEvent> {

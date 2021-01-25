@@ -12,20 +12,20 @@
     <!--Charts-->
     <mat-grid-tile [colspan]="( cardLayout | async )?.chart.cols" [rowspan]="( cardLayout | async )?.chart.rows">
       <app-card title="Events Categories">
-        <app-category-chart></app-category-chart>
+        <app-category-chart [ifModifiedSince]="ifModifiedSince"></app-category-chart>
       </app-card>
     </mat-grid-tile>
 
     <mat-grid-tile [colspan]="( cardLayout | async )?.chart.cols" [rowspan]="( cardLayout | async )?.chart.rows">
       <app-card title="Events Cost">
-        <app-divided-cost-chart></app-divided-cost-chart>
+        <app-divided-cost-chart [ifModifiedSince]="ifModifiedSince"></app-divided-cost-chart>
       </app-card>
     </mat-grid-tile>
 
     <!-- Maxi Card -->
     <mat-grid-tile class="maxi" [colspan]="( cardLayout | async )?.maxiCard.cols" [rowspan]="( cardLayout | async )?.maxiCard.rows">
       <app-card title="Monthly Cost">
-        <app-monthly-expenses-chart></app-monthly-expenses-chart>
+        <app-monthly-expenses-chart [ifModifiedSince]="ifModifiedSince"></app-monthly-expenses-chart>
       </app-card>
     </mat-grid-tile>
 

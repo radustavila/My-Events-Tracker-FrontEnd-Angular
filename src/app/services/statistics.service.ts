@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -27,7 +27,7 @@ export class StatisticsService {
     return this.http.get<any>(`${this.host}/stats/monthly-expenses`)
   }
 
-  public getCostEventsSummary(): Observable<Summary[]> {
-    return this.http.get<Summary[]>(`${this.host}/stats/summary`)
+  public getCostEventsSummary(): Observable<any> {
+    return this.http.get<any>(`${this.host}/stats/summary`, {observe: "response"})
   }
 }

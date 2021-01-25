@@ -39,12 +39,20 @@ export class EventsListDataSource extends DataSource<EventsListItem> {
   fetchData(): void {
     this.eventService.get().subscribe(
       res => {
-        this.data = res
-        this.initialData = res
+        this.data = res.body
+        this.initialData = res.body
+        localStorage.setItem('events', JSON.stringify(res.body))
       },
       err => {
-        console.log(err)
-        this.utilsService.openFailSnackBar("Could not retrive data from server!")
+        if (err.status === 304) {
+          const res = JSON.parse(localStorage.getItem('events'))
+          this.data = res
+          this.initialData = res
+        }
+        else {
+          console.log(err)
+          this.utilsService.openFailSnackBar("Could not retrive data from server!")
+        }
       }
     )
   }
