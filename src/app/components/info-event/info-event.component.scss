@@ -3,19 +3,35 @@
   padding: 25px 0;
 }
 
+.container {
+  width: 80%;
+  margin: 20px auto;
+
+  @media(min-width: 768px) {
+    margin-top: 50px;
+  }
+
+  @media (min-width: 1024px) {
+    min-width: 800px;
+    width: 60%;
+  }
+}
 
 .row {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 
-  @media(max-width: 768px) {
-    flex-direction: column;
+  @media(min-width: 1024px) {
+    flex-direction: row;
   }
 }
 
 .col {
   flex: 1;
-  margin-right: 20px;
+  
+  @media (min-width: 768px) {
+    margin-right: 20px;
+  }
 }
 
 .col:last-child {
@@ -23,13 +39,22 @@
 }
 
 agm-map {
-  height: 350px;
+  // min-height: 250px;
+  height: 250px;
+
+  @media (min-width: 1024px) {
+    height: 350px;
+  }
 }
 
 
 .info {
-  font-size: x-large;
+  font-size: large;
   max-height: 350px;
+
+  @media (min-width: 500px) {
+    font-size: x-large;
+  }
 
   ::-webkit-scrollbar {
     display: none;

@@ -30,7 +30,7 @@
     </mat-grid-tile>
 
     <!-- Table -->
-    <mat-grid-tile [colspan]="( cardLayout | async )?.table.cols" [rowspan]="( cardLayout | async )?.table.rows">
+    <mat-grid-tile [colspan]="( cardLayout | async )?.table.cols" [rowspan]="( cardLayout | async )?.table.rows" style="width: 100px;">
       <app-card title="Latest Events">
         <app-events-table></app-events-table>
       </app-card>

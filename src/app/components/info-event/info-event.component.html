@@ -1,6 +1,6 @@
 <mat-spinner color="primary" id="loading"></mat-spinner>
-<article *ngIf="visible" style="width: 70%;min-width: 350px; margin: 0 auto;margin-top: 100px;">
-    <mat-card>
+<article *ngIf="visible">
+    <mat-card class="container">
         <mat-card-header>
             <mat-card-title><b>{{event.name}}</b></mat-card-title>
         <div>
@@ -23,7 +23,7 @@
                             <p><b>Date:</b> {{event.date}}</p>
                         </li>
                         <li>
-                            <p style="overflow-y:scroll; max-height: 230px;"><b>Details:</b> {{event.details}}</p>
+                            <p style="overflow-y:scroll; max-height: 230px; max-width: 400px;"><b>Details:</b> {{event.details}}</p>
                         </li>
                     </ul>
                 </section>

@@ -59,10 +59,11 @@ export class EventsListComponent implements AfterViewInit, OnInit {
     this.eventService.delete(id).subscribe(
       res => {
         this.dataSource.fetchData()
+        this.utilsService.openSuccesSnackBar("Event deleted successfully!")
       },
       err => {
         console.log(err)
-        this.utilsService.openFailSnackBar("Failed item deletion!")
+        this.utilsService.openFailSnackBar("Failed event deletion!")
       }
     )
   }

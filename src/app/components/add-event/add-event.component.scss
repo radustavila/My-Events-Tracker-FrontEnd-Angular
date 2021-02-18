@@ -3,13 +3,17 @@
 }
 
 .shipping-card {
-  min-width: 450px;
-  width: 50%;
-  max-width: 600px;
+  //screen max-width: 767px;
+  width: 85%;
+  min-width: 250px;
   margin: 20px auto;
   margin-top: 50px;
-  // background-image: url('/assets/images/mat-card-background.jpg');
-  // background-size: cover;
+
+  @media (min-width: 768px) {
+    min-width: 650px;
+    width: 65%;
+    max-width: 800px;
+  }
 }
 
 .mat-radio-button {
@@ -18,13 +22,21 @@
 }
 
 .row {
+  //screen max-width: 767px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
 }
 
 .col {
   flex: 1;
-  margin-right: 20px;
+
+  @media (min-width: 768px) {
+    margin-right: 20px;
+  }
 }
 
 .col:last-child {
@@ -60,17 +72,14 @@
   // width: auto;
   background-color: #eeeeee;
   margin-top: 10px;
-
-  @media(min-width: 1200px) {
-    max-width: 600px;
-  }
+  max-width: 100%;
 
   .image {
     cursor: pointer;
     padding: 15px 15px 0 15px;
     width:180px;
     
-    @media(min-width: 1200px) {
+    @media(min-width: 1024px) {
       width:250px;
     }
   }
@@ -101,9 +110,9 @@ agm-map {
 .search-field {
   width: 100%;
 
-  @media (max-width: 725px) {
-    max-width: 200px;
-  }
+  // @media (max-width: 725px) {
+  //   max-width: 200px;
+  // }
 }
 
 .image-dialog {
