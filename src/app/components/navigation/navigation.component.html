@@ -8,6 +8,14 @@
             <span class="example-spacer"></span>
             <div *ngIf="visible" fxShow="true" fxHide.lt-md="true">
                 <!-- The following menu items will be hidden on both SM and XS screen sizes -->
+                <a href="https://api.instagram.com/oauth/authorize
+                        ?client_id=4159130624118311
+                        &redirect_uri=https://my-event-tracker.herokuapp.com/login
+                        &scope=user_profile,user_media
+                        &response_type=code" mat-button>
+                    <mat-icon>add_a_photo</mat-icon>
+                    Sign In Instagram
+                </a>
                 <a routerLink="/dashboard" (click)="titlePage('Dashboard')" mat-button>
                     <mat-icon>dashboard</mat-icon>
                     Dashboard
@@ -31,6 +39,8 @@
     <mat-sidenav-container fxFlexFill>
         <mat-sidenav #sidenav>
             <mat-nav-list>
+
+                
                 <a routerLink="/dashboard" (click)="titlePage('Dashboard')" mat-list-item>
                     <mat-icon>dashboard</mat-icon>
                     Dashboard
